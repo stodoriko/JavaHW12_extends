@@ -48,13 +48,6 @@ class ProductManagerTest {
     }
 
     @Test
-    public void shouldNotFindNull() {
-        Product[] expected = {};
-        Product[] actual = manager.searchBy(null);
-        assertArrayEquals(expected, actual);
-    }
-
-    @Test
     public void shouldFindPhoneName() {
         Product[] expected = { smartphone };
         Product[] actual = manager.searchBy("Pixel");
