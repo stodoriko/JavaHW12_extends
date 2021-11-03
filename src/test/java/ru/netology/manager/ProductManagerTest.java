@@ -14,22 +14,31 @@ class ProductManagerTest {
     ProductRepository repository = new ProductRepository();
     ProductManager manager = new ProductManager(repository);
     Product book1 = new Book(1, "О дивный новый мир", 399, "Олдос Хаксли");
+    Product book4 = new Book(5, "Слепец в Газе", 399, "Олдос Хаксли");
     Product book2 = new Book(2, "Пират", 499, "Вальтер Скотт");
     Product book3 = new Book(3, "Clear Code", 599, "Robert Martin");
     Product smartphone = new Smartphone(4, "Pixel", 19000, "Google");
 
     @BeforeEach
-    public void SetUp() {
+    public void setUp() {
         manager.add(book1);
         manager.add(book2);
         manager.add(book3);
         manager.add(smartphone);
+        manager.add(book4);
+    }
+
+    @Test
+    public void shouldFindSeveralAuthors() {
+        Product[] expected = { book1, book4 };
+        Product[] actual = manager.searchBy("Олдос Хаксли");
+        assertArrayEquals(expected, actual);
     }
 
     @Test
     public void shouldFindAuthor() {
-        Product[] expected = { book1 };
-        Product[] actual = manager.searchBy("Олдос Хаксли");
+        Product[] expected = { book3 };
+        Product[] actual = manager.searchBy("Robert Martin");
         assertArrayEquals(expected, actual);
     }
 
